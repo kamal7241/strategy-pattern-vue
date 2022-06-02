@@ -1,0 +1,65 @@
+@import "~bootstrap";
+.pointer {
+  cursor: pointer;
+}
+.duck {
+  position: relative;
+  overflow: hidden;
+  max-width: 516px;
+  max-height: 332px;
+  &:hover {
+    .duck__btn {
+      display: inline-block;
+    }
+  }
+  .duck__btn {
+    display: none;
+    position: absolute;
+    &.duck__btn--swim {
+      top: 0.5rem;
+      left: 0.5rem;
+    }
+    &.duck__btn--fly {
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+    &.duck__btn--info {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .btn {
+    &.btn-primary {
+      background-color: orangered;
+      border-color: orangered;
+    }
+  }
+}
+
+/* we will explain what these classes do next! */
+.v-enter-active {
+  transition: all 0.3s ease;
+  transition-delay: 0.5s;
+}
+.v-leave-active {
+  transition: all 0.3s ease;
+}
+
+.v-enter-from {
+  transform: translateX(-100%);
+  opacity: 0;
+  height: 0;
+}
+.v-enter-to {
+  opacity: 1;
+  transform: none;
+}
+.v-leave-from {
+  opacity: 1;
+  transform: none;
+}
+.v-leave-to {
+  opacity: 0;
+  transform: translateX(-100%);
+}
