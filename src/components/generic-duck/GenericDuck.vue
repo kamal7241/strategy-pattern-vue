@@ -9,11 +9,11 @@
 </template>
 
 <script>
-import WhiteDuck from "./WhiteDuck.vue";
-import RedHeadDuck from "./RedHeadDuck.vue";
-import MillardDuck from "./MillardDuck.vue";
-import RubberDuck from "./RubberDuck.vue";
-import DecoyDuck from "./DecoyDuck.vue";
+import WhiteDuck from "./ducks/WhiteDuck.vue";
+import RedHeadDuck from "./ducks/RedHeadDuck.vue";
+import MillardDuck from "./ducks/MillardDuck.vue";
+import RubberDuck from "./ducks/RubberDuck.vue";
+import DecoyDuck from "./ducks/DecoyDuck.vue";
 export default {
   name: "GenericCard",
   components: {

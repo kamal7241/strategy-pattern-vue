@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-import InfoCard from "../InfoCard.vue";
+import InfoCard from "../../InfoCard.vue";
 export default {
   name: "DuckInfo",
   props: ["info", "swimState", "flyBehaviour"],

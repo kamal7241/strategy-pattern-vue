@@ -4,9 +4,8 @@
     <div class="duck d-inline-block shadow-sm p-2 mb-2 mt-2">
       <DuckTemplate
         :width="500"
-        :image="require('../../assets/millard.jpg')"
-        :flyImage="require('../../assets/flying-duck.jpg')"
-        :swimImage="require('../../assets/mallard-swim.jpg')"
+        :image="require('../../../assets/decoy-duck.jpg')"
+        :swimImage="require('../../../assets/decoy-swim.jpg')"
         :isSwim="isSwim"
         :isFly="isFly"
         @quack="quack"
@@ -27,12 +26,12 @@
   </div>
 </template>
 <script>
-import useDuck from "./useDuck";
-import useFlyWithWings from "./fly/useFlyWithWings";
-import useQuack from "./quack/useQuack";
-import DuckTemplate from "./DuckTemplate.vue";
-import DuckInfo from "./DuckInfo.vue";
-import DuckBtns from "./DuckBtns.vue";
+import useDuck from "../useDuck";
+import useFlyNoWay from "../fly/flyNoWay";
+import useMuteQuack from "../quack/useMuteQuack";
+import DuckTemplate from "../duck-templates/DuckTemplate.vue";
+import DuckInfo from "../duck-templates/DuckInfo.vue";
+import DuckBtns from "../duck-templates/DuckBtns.vue";
 export default {
   name: "WhiteDuck",
   components: {
@@ -43,15 +42,15 @@ export default {
   props: ["width"],
   setup() {
     // super Duck
-    return { ...useDuck(useFlyWithWings(), useQuack()) };
+    return { ...useDuck(useFlyNoWay(), useMuteQuack()) };
   },
   mounted() {
-    this.type = "Millard";
+    this.type = "Decoy";
     this.info = {
-      name: "Millar Duck",
-      weight: 7,
-      color: "Green",
-      lifeTime: 9,
+      name: "Decoy Duck",
+      weight: 1,
+      color: "woody",
+      lifeTime: 25,
     };
   },
 };

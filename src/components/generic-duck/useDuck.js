@@ -14,9 +14,11 @@ export default function useDuck(_flyBehaviour, _quackBehaviour) {
   const flyBehaviour = ref(null);
   const quackBehaviour = ref(null);
   const btnsModel = computed(() => {
+    let fly;
+    if (flyBehaviour.value.canFly()) fly = isFly.value ? "Stop Fly" : "Fly";
     return {
       swim: isSwim.value ? "Stop Swimming" : "Start Swimming",
-      fly: isFly.value ? "Stop Fly" : "Fly",
+      fly,
       info: "Show Info",
     };
   });

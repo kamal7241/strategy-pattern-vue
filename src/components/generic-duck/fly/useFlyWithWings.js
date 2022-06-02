@@ -11,9 +11,11 @@ export default function useFlyWithWings() {
   const stopFly = () => {
     flyState.value = undefined;
   };
+  const canFly = () => true;
   return {
     flyState,
     fly,
     stopFly,
+    canFly,
   };
 }

@@ -5,7 +5,11 @@
   >
     {{ swim }}
   </button>
-  <button class="btn btn-primary duck__btn duck__btn--fly" @click="triggerFly">
+  <button
+    v-if="fly"
+    class="btn btn-primary duck__btn duck__btn--fly"
+    @click="triggerFly"
+  >
     {{ fly }}
   </button>
   <!-- info  -->
