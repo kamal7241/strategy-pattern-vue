@@ -1,30 +1,48 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-3">
+        <div class="text-start h3">
+          <label class="form-label mb-3" for="">Select Type : </label>
+          <select class="form-select" v-model="type">
+            <option :value="TYPES.redHead">RedHead</option>
+            <option  :value="TYPES.Mallard" >Mallard</option>
+            <option  :value="TYPES.white" >White</option>
+            <option  :value="TYPES.decoy" >Decoy</option>
+            <option  :value="TYPES.rubber" >Rubber</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-9">
+        <StrategyDuck :type="type" :width="500" />
+        <GenericCard :type="type" :width="500" />
+      </div>
+    </div>
+    <div class="row" >
+        <div class="col-12" >
+
+        </div>
+    </div>
   </div>
-  <router-view />
 </template>
-
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import StrategyDuck from "./components/generic-duck/Strategy-Duck.vue";
+import GenericCard from "./components/GenericDuck.vue";
+import { TYPES } from './enums';
+export default {
+  components: {
+    StrategyDuck,
+    GenericCard
+  },
+  data() {
+    return {
+      type: TYPES.redHead,
+    };
+  },
+  computed : {
+    TYPES(){
+      return TYPES;
     }
   }
-}
-</style>
+};
+</script>

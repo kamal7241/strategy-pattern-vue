@@ -15,12 +15,15 @@
   }
   &:hover {
     .duck__btn {
-      display: inline-block;
+      opacity: 1;
+      pointer-events: auto;
     }
   }
   .duck__btn {
-    display: none;
     position: absolute;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+    pointer-events: none;
     &.duck__btn--swim {
       top: 0.5rem;
       left: 0.5rem;

@@ -1,6 +1,8 @@
-export default function useSqueak() {
-  const audio = new Audio(require("../../../assets/duck-squeak.mp3"));
-  audio.volume = 0.5;
+export default function useSwimQuack() {
+  const audio = new Audio(
+    require("../../../assets/Ducks in Pond - QuickSounds.com.mp3")
+  );
+  audio.volume = 0.3;
   const quack = () => {
     audio.play();
   };

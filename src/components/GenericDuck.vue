@@ -1,29 +1,23 @@
 <template>
   <div class="text-center">
     <div class="duck d-inline-block shadow-sm p-2 mb-2 mt-2">
-      <Transition>
-        <img
-          v-if="isSwim"
-          class="pointer"
-          @click="quack"
-          :width="width"
-          :src="duckImage"
-        />
-        <img
-          v-else-if="isFly"
-          class="pointer"
-          @click="quack"
-          :width="width"
-          :src="duckFlyImage"
-        />
-        <img
-          v-else
-          class="pointer"
-          @click="quack"
-          :width="width"
-          :src="duckSwimImage"
-        />
-      </Transition>
+      <div class="image-wrapper" :style="{ width: width + 'px' }">
+        <Transition>
+          <img
+            v-if="isSwim"
+            class="pointer"
+            @click="quack"
+            :src="duckSwimImage"
+          />
+          <img
+            v-else-if="isFly"
+            class="pointer"
+            @click="quack"
+            :src="duckFlyImage"
+          />
+          <img v-else class="pointer" @click="quack" :src="duckImage" />
+        </Transition>
+      </div>
       <button
         class="btn btn-primary duck__btn duck__btn--swim"
         @click="toggleSwim"
@@ -31,10 +25,11 @@
         {{ isSwim ? "Stop Swimming" : "Start Swimming" }}
       </button>
       <button
+        v-if="canFly"
         class="btn btn-primary duck__btn duck__btn--fly"
         @click="toggleFly"
       >
-        fly
+        {{ isFly ? "Stop Fly" : "Fly" }}
       </button>
       <!-- info  -->
       <button
@@ -66,8 +61,9 @@
 import { ref } from "vue";
 import { Modal } from "bootstrap";
 import InfoCard from "./InfoCard.vue";
+import { TYPES } from "../enums";
 export default {
-  name: "Duck",
+  name: "GenericDuck",
   props: ["width", "type"],
   components: {
     InfoCard,
@@ -79,21 +75,34 @@ export default {
     };
   },
   computed: {
+    canFly() {
+      switch (this.type) {
+        case TYPES.rubber:
+        case TYPES.decoy:
+          return false;
+        default:
+          return true;
+      }
+    },
     duckImage() {
       switch (this.type) {
-        case "Millard":
+        case TYPES.Mallard:
           return require("../assets/millard.jpg");
-        case "RedHead":
+        case TYPES.redHead:
           return require("../assets/redhead.jpg");
+        case TYPES.decoy:
+          return require("../assets/decoy-duck.jpg");
+        case TYPES.rubber:
+          return require("../assets/rubber.jpg");
         default:
           return require("../assets/duck.jpg");
       }
     },
     duckFlyImage() {
       switch (this.type) {
-        case "Millard":
+        case TYPES.Mallard:
           return require("../assets/flying-duck.jpg");
-        case "RedHead":
+        case TYPES.redHead:
           return require("../assets/redhead-fly.jpg");
         default:
           return require("../assets/white-duck-fly.jpg");
@@ -101,39 +110,55 @@ export default {
     },
     duckSwimImage() {
       switch (this.type) {
-        case "Millard":
+        case TYPES.Mallard:
           return require("../assets/millard.jpg");
-        case "RedHead":
-          return require("../assets/redhead.jpg");
+        case TYPES.redHead:
+          return require("../assets/redhead-duck-swim.jpg");
+        case TYPES.rubber:
+          return require("../assets/rubber-swim.jpg");
+        case TYPES.decoy:
+          return require("../assets/decoy-swim.jpg");
         default:
           return require("../assets/duck.jpg");
       }
     },
     duckQuackSound() {
       switch (this.type) {
-        case "Millard":
-          return require("../assets/millard.jpg");
-        case "RedHead":
-          return require("../assets/redhead.jpg");
-        default:
-          return require("../assets/duck.jpg");
-      }
+        case TYPES.rubber:
+          return new Audio(require("../assets/duck-squeak.mp3"));
+        case TYPES.decoy:
+          return new Audio();
+        default : 
+        if(this.isFly)
+           return new Audio(require("../assets/flying-sound.mp3"));
+        else if (this.isSwim)
+           return new Audio(require("../assets/Ducks in Pond - QuickSounds.com.mp3"));
+        else 
+          return new Audio(require("../assets/Duck-quack.mp3"))
+     }
     },
     duckInfo() {
       switch (this.type) {
-        case "Millard":
+        case TYPES.Mallard:
           return {
-            name: "White Duck",
+            name: "Mallard Duck",
             weight: 30,
             color: "Green",
             lifeTime: 7,
           };
-        case "RedHead":
+        case TYPES.rubber:
           return {
-            name: "RedHead Duck",
-            weight: 40,
-            color: "Red",
-            lifeTime: 9,
+            name: "Rubber Duck",
+            weight: 30,
+            color: "Yellow",
+            lifeTime: 7,
+          };
+        case TYPES.decoy:
+          return {
+            name: "Decoy Duck",
+            weight: 30,
+            color: "woody",
+            lifeTime: 7,
           };
         default:
           return {
@@ -147,7 +172,6 @@ export default {
   },
   data() {
     return {
-      audio: new Audio(require("../assets/Duck-quack.mp3")),
       isSwim: false,
       swimState: undefined,
       isFly: false,
@@ -164,9 +188,9 @@ export default {
   },
   methods: {
     quack() {
-      this.audio.play();
+      this.duckQuackSound.play();
       setTimeout(() => {
-        this.audio.pause();
+        this.duckQuackSound.pause();
       }, 1000);
     },
     toggleSwim() {
@@ -186,7 +210,6 @@ export default {
         };
       else this.flyState = undefined;
     },
-    displayInfo() {},
   },
   mounted() {
     this.modal = new Modal(this.modalCard.$el.querySelector("#appModal"));
@@ -201,70 +224,3 @@ export default {
   },
 };
 </script>
-<style lang="scss">
-@import "~bootstrap";
-.pointer {
-  cursor: pointer;
-}
-.duck {
-  position: relative;
-  overflow: hidden;
-  max-width: 516px;
-  max-height: 332px;
-  &:hover {
-    .duck__btn {
-      display: inline-block;
-    }
-  }
-  .duck__btn {
-    display: none;
-    position: absolute;
-    &.duck__btn--swim {
-      top: 0.5rem;
-      left: 0.5rem;
-    }
-    &.duck__btn--fly {
-      top: 0.5rem;
-      right: 0.5rem;
-    }
-    &.duck__btn--info {
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  }
-  .btn {
-    &.btn-primary {
-      background-color: orangered;
-      border-color: orangered;
-    }
-  }
-}
-
-/* we will explain what these classes do next! */
-.v-enter-active {
-  transition: all 0.3s ease;
-  transition-delay: 0.5s;
-}
-.v-leave-active {
-  transition: all 0.3s ease;
-}
-
-.v-enter-from {
-  transform: translateX(-100%);
-  opacity: 0;
-  height: 0;
-}
-.v-enter-to {
-  opacity: 1;
-  transform: none;
-}
-.v-leave-from {
-  opacity: 1;
-  transform: none;
-}
-.v-leave-to {
-  opacity: 0;
-  transform: translateX(-100%);
-}
-</style>

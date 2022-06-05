@@ -2,6 +2,8 @@ import { ref, onMounted, computed, onBeforeMount } from "vue";
 import { Modal } from "bootstrap";
 import { watchEffect } from "vue";
 import "./duck.scss";
+import useFlyBehaviour from "./fly";
+import useQuackBehaviour from "./quack";
 export default function useDuck(_flyBehaviour, _quackBehaviour) {
   //#region state
   const modalCard = ref(null);
@@ -42,15 +44,38 @@ export default function useDuck(_flyBehaviour, _quackBehaviour) {
     if (isFly.value) flyBehaviour.value.fly();
     else flyBehaviour.value.stopFly();
   };
+  const fly = (_flyQuack, _normalQuack) => {
+    toggleFly();
+    quackBehaviour.value.stopQuack();
+    if (isFly.value) setQuackBehaviour(_flyQuack);
+    else setQuackBehaviour(_normalQuack);
+  };
+  const swim = (_swimQuack, _flyQuack) => {
+    toggleSwim();
+    quackBehaviour.value.stopQuack();
+    if (isSwim.value) setQuackBehaviour(_swimQuack);
+    else setQuackBehaviour(_flyQuack);
+  };
   const quack = () => {
     quackBehaviour.value.quack();
     setTimeout(() => {
       quackBehaviour.value.stopQuack();
-    }, 1000);
+    }, 2000);
+  };
+  const setQuackBehaviour = (behaviour) => {
+    quackBehaviour.value.stopQuack();
+    quackBehaviour.value = useQuackBehaviour(behaviour);
+  };
+  const setFlyBehaviour = (behaviour) => {
+    flyBehaviour.value.stopFly();
+    flyBehaviour.value = useFlyBehaviour(behaviour);
   };
   //#region  hooks
   watchEffect(() => {
     if (isFly.value) isSwim.value = false;
+  });
+  watchEffect(() => {
+    if (isSwim.value) isFly.value = false;
   });
   watchEffect(() => {
     if (isSwim.value) isFly.value = false;
@@ -75,12 +100,15 @@ export default function useDuck(_flyBehaviour, _quackBehaviour) {
     isFly,
     info,
     swimState,
-    toggleSwim,
-    toggleFly,
+    swim,
+    fly,
     quack,
     showInfo,
     btnsModel,
     quackBehaviour,
     flyBehaviour,
+    // for dynamic change
+    setQuackBehaviour,
+    setFlyBehaviour,
   };
 }

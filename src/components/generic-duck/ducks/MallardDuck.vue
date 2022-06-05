@@ -5,8 +5,9 @@
       <div class="duck d-inline-block shadow-sm p-2 mb-2 mt-2">
         <DuckTemplate
           :width="500"
-          :image="require('../../../assets/decoy-duck.jpg')"
-          :swimImage="require('../../../assets/decoy-swim.jpg')"
+          :image="require('../../../assets/millard.jpg')"
+          :flyImage="require('../../../assets/flying-duck.jpg')"
+          :swimImage="require('../../../assets/mallard-swim.jpg')"
           :isSwim="isSwim"
           :isFly="isFly"
           @quack="quack"
@@ -37,7 +38,7 @@ import useFlyBehaviour from "../fly";
 import { FLY_BEHAVIOUR, QUACK_BEHAVIOUR } from "../../../enums";
 import useQuackBehaviour from "../quack";
 export default {
-  name: "DecoyDuck",
+  name: "MallardDuck",
   components: {
     DuckTemplate,
     DuckInfo,
@@ -49,8 +50,8 @@ export default {
     // super Duck
     return {
       ...useDuck(
-        useFlyBehaviour(FLY_BEHAVIOUR.noWay),
-        useQuackBehaviour(QUACK_BEHAVIOUR.muted)
+        useFlyBehaviour(FLY_BEHAVIOUR.wings),
+        useQuackBehaviour(QUACK_BEHAVIOUR.quack)
       ),
     };
   },
@@ -63,12 +64,13 @@ export default {
     },
   },
   mounted() {
-    this.type = "Decoy";
+    this.type = "Mallard";
     this.info = {
-      name: "Decoy Duck",
-      weight: 1,
-      color: "woody",
-      lifeTime: 25,
+      name: "Mallar Duck",
+      weight: 7,
+      color: "Green",
+      lifeTime: 9,
+      livesIn: "Asia",
     };
   },
 };
