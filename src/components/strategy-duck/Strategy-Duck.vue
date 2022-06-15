@@ -14,7 +14,7 @@ import RedHeadDuck from "./ducks/RedHeadDuck.vue";
 import MallardDuck from "./ducks/MallardDuck.vue";
 import RubberDuck from "./ducks/RubberDuck.vue";
 import DecoyDuck from "./ducks/DecoyDuck.vue";
-import { TYPES } from "../../enums"
+import { TYPES } from "../../enums";
 export default {
   name: "StrategyDuck",
   components: {
@@ -25,10 +25,10 @@ export default {
     DecoyDuck,
   },
   props: ["type", "width"],
-  computed : {
-    TYPES(){
+  computed: {
+    TYPES() {
       return TYPES;
-    }
-  }
+    },
+  },
 };
 </script>

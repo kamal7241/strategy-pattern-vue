@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="h1 text-start container mb-4 w-50">
-      <label class="mb-3" for="">Select Quack Behaviour</label>
+    <div class="h1 text-center d-block m-auto mb-4 w-50">
+      <label class="mb-3 text-nowrap" for="">Select Quack Behaviour</label>
       <select class="form-select" @change="onSelect">
         <option :value="QUACK_BEHAVIOUR.quack">Quack</option>
         <option :value="QUACK_BEHAVIOUR.fly">Fly</option>
@@ -14,17 +14,17 @@
   </div>
 </template>
 <script>
-import { QUACK_BEHAVIOUR } from "../../../enums"
+import { QUACK_BEHAVIOUR } from "../../../enums";
 export default {
   name: "DuckInput",
-  computed:{
-    QUACK_BEHAVIOUR(){
-      return QUACK_BEHAVIOUR
-    }
+  computed: {
+    QUACK_BEHAVIOUR() {
+      return QUACK_BEHAVIOUR;
+    },
   },
   methods: {
     onSelect({ target }) {
-      debugger
+      debugger;
       this.$emit("select", target.value);
     },
   },

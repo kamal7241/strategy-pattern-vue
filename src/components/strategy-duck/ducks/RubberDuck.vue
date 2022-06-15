@@ -56,10 +56,10 @@ export default {
   },
   methods: {
     performFly() {
-      this.fly(QUACK_BEHAVIOUR.fly, QUACK_BEHAVIOUR.quack);
+      this.fly(QUACK_BEHAVIOUR.fly, QUACK_BEHAVIOUR.squeak);
     },
     performSwim() {
-      this.swim(QUACK_BEHAVIOUR.swim, QUACK_BEHAVIOUR.quack);
+      this.swim(QUACK_BEHAVIOUR.swim, QUACK_BEHAVIOUR.squeak);
     },
   },
   mounted() {

@@ -1,3 +1,4 @@
+```js
 // abstract class
 class Duck {
     isSwim = false;
@@ -7,22 +8,27 @@ class Duck {
         this.info = info;
         this.width = width;
     }
-    // constant behaviours all Ducks swim and quack
     toggleSwim(){
+
     }
     swim(){
+
     }
     quack(){
+
     }
+    // abstract methods
     // i dont know each Duck how will it look?
-    // abstract
     render(){
+
     }
     // abstract
     renderSwim(){
+
     }
     // abstract
     renderInfo(){
+
     }
 }
 
@@ -77,7 +83,7 @@ class RubberDuck extends Duck {
     }
     renderInfo(){
     }   
-    //override
+    //override type behaviour
     quack(){
         // squeak
     }
@@ -134,3 +140,4 @@ class Duck {
     renderInfo(){
     }
 }
+```

@@ -17,7 +17,7 @@ export default function useQuackBehaviour(_behaviour) {
       return useSqueak();
     case QUACK_BEHAVIOUR.rocket:
       return useRocketSound();
-      default:
+    default:
       return useMuteQuack();
   }
 }

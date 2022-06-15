@@ -38,7 +38,6 @@ export default function useDuck(_flyBehaviour, _quackBehaviour) {
       };
     else swimState.value = undefined;
   };
-  //#region methods ends
   const toggleFly = () => {
     isFly.value = !isFly.value;
     if (isFly.value) flyBehaviour.value.fly();
@@ -70,12 +69,11 @@ export default function useDuck(_flyBehaviour, _quackBehaviour) {
     flyBehaviour.value.stopFly();
     flyBehaviour.value = useFlyBehaviour(behaviour);
   };
+  //#endregion methods ends
+
   //#region  hooks
   watchEffect(() => {
     if (isFly.value) isSwim.value = false;
-  });
-  watchEffect(() => {
-    if (isSwim.value) isFly.value = false;
   });
   watchEffect(() => {
     if (isSwim.value) isFly.value = false;
@@ -87,10 +85,9 @@ export default function useDuck(_flyBehaviour, _quackBehaviour) {
     quackBehaviour.value = _quackBehaviour;
   }),
     onMounted(() => {
-      console.log(modalCard.value.$el.querySelector("#appModal"));
       modal.value = new Modal(modalCard.value.$el.querySelector("#appModal"));
     });
-  //#endregion
+  //#endregion hooks
 
   return {
     modalCard,

@@ -128,14 +128,15 @@ export default {
           return new Audio(require("../assets/duck-squeak.mp3"));
         case TYPES.decoy:
           return new Audio();
-        default : 
-        if(this.isFly)
-           return new Audio(require("../assets/flying-sound.mp3"));
-        else if (this.isSwim)
-           return new Audio(require("../assets/Ducks in Pond - QuickSounds.com.mp3"));
-        else 
-          return new Audio(require("../assets/Duck-quack.mp3"))
-     }
+        default:
+          if (this.isFly)
+            return new Audio(require("../assets/flying-sound.mp3"));
+          else if (this.isSwim)
+            return new Audio(
+              require("../assets/Ducks in Pond - QuickSounds.com.mp3")
+            );
+          else return new Audio(require("../assets/Duck-quack.mp3"));
+      }
     },
     duckInfo() {
       switch (this.type) {

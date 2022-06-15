@@ -1,48 +1,33 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-3">
-        <div class="text-start h3">
-          <label class="form-label mb-3" for="">Select Type : </label>
-          <select class="form-select" v-model="type">
-            <option :value="TYPES.redHead">RedHead</option>
-            <option  :value="TYPES.Mallard" >Mallard</option>
-            <option  :value="TYPES.white" >White</option>
-            <option  :value="TYPES.decoy" >Decoy</option>
-            <option  :value="TYPES.rubber" >Rubber</option>
-          </select>
-        </div>
-      </div>
-      <div class="col-9">
-        <StrategyDuck :type="type" :width="500" />
-        <GenericCard :type="type" :width="500" />
-      </div>
-    </div>
-    <div class="row" >
-        <div class="col-12" >
-
-        </div>
-    </div>
+  <div class="container mb-5">
+    <h1 class="title-description">Strategy Pattern</h1>
+    <ul class="nav nav-tabs mb-3">
+      <li class="nav-item">
+        <router-link class="nav-link" active-class="active" :to="'/'"
+          >home</router-link
+        >
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link" active-class="active" :to="'strategy'"
+          >strategy</router-link
+        >
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link" active-class="active" :to="'normal'"
+          >all in one</router-link
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="container mb-5">
+    <router-view v-slot="{ Component }">
+      <transition mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 <script>
-import StrategyDuck from "./components/generic-duck/Strategy-Duck.vue";
-import GenericCard from "./components/GenericDuck.vue";
-import { TYPES } from './enums';
-export default {
-  components: {
-    StrategyDuck,
-    GenericCard
-  },
-  data() {
-    return {
-      type: TYPES.redHead,
-    };
-  },
-  computed : {
-    TYPES(){
-      return TYPES;
-    }
-  }
-};
+import "./styles/main.scss";
+export default {};
 </script>
